@@ -1,4 +1,5 @@
 const express = require('express')
+const { route } = require('.')
 const router = express.Router()
 const  Golfer = require('../models/golfer')
 
@@ -32,9 +33,7 @@ router.post('/', async (req, res)=>{
     })
     try{
         const newGolfer = await golfer.save()
-         //res.redirect(`golfers/${newGolfer.id}`)
-        res.redirect(`golfers`)
-
+        res.redirect(`golfers/${newGolfer.id}`)
     } catch{
         res.render('golfers/new',{
             golfer: golfer,
@@ -42,6 +41,54 @@ router.post('/', async (req, res)=>{
         })
     }
     
+})
+
+router.get('/:id', (req, res) => {
+    res.send('Show Golfer ' + req.params.id)
+})
+
+router.get('/:id/edit', async (req, res) => {
+    try {
+        const golfer =  await Golfer.findById(req.params.id)
+        res.render('golfers/edit', {golfer: golfer })
+    } catch {
+        res.redirect('.authors')
+    }
+    
+})
+
+router.put('/:id', async (req, res) => {
+    let golfer
+    try{
+        golfer = await Golfer.findById(req.params.id)
+        golfer.name = req.body.name
+        await golfer.save()
+        res.redirect(`/golfers/${golfer.id}`)
+    } catch{
+        if (golfer == nul){
+            res.redirect('/')
+        } else {
+            res.render('golfers/edit',{
+                golfer: golfer,
+                errorMessage: 'Error updating golfer'
+            })
+        } 
+    }  
+})
+
+router.delete('/:id', async (req, res) => {
+    let golfer
+    try{
+        golfer = await Golfer.findById(req.params.id)
+        await golfer.remove()
+        res.redirect('/golfers')
+    } catch{
+        if (golfer == nul){
+            res.redirect('/')
+        } else {
+            res.redirect(`/golfers/${golfer.id}`)
+        } 
+    } 
 })
 
 module.exports = router

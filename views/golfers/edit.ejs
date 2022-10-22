@@ -1,0 +1,6 @@
+<h2>Edit Golfer</h2>
+<form action="/golfers/<%= golfer.id %>?_method=PUT" method="POST">
+    <%- include('_form_fields') %>
+    <a href="/golfers/<%= golfer.id %>">Cancel</a>
+    <button type="submit">Update</button>
+</form>

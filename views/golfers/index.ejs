@@ -7,4 +7,9 @@
 <br>
 <% golfers.forEach(golfer => { %>
     <div><%= golfer.name %></div>
+    <a href="/golfers/<%= golfer.id %>">Veiw</a>
+    <a href="/golfers/<%= golfer.id %>/edit">Edit</a>
+    <form method="POST" action="/golfers/<%= golfer.id %>?_method=DELETE">
+        <button type="submit">Delete</button>
+    </form>
 <% }) %>

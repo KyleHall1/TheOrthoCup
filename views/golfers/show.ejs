@@ -1,0 +1,5 @@
+<h2> <%= golfer.name %></h2>
+<a href="/golfer/ <%= golfer.id %>/edit">Edit</a>
+<form method="POST" action="/golfers/<%= golfer.id %>?_method=DELETE">
+    <button type="submit">Delete</button>
+</form>
