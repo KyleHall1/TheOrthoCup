@@ -3,12 +3,13 @@ const { route } = require('.')
 const router = express.Router()
 const  Golfer = require('../models/golfer')
 
-// all golfers route
+
+ //all golfers route
 router.get('/', async (req, res)=>{
     let searchOptions = {}
     if(req.query.name != null && req.query.name != ''){
         searchOptions.name = new RegExp(req.query.name, 'i')
-    }
+    } 
     try{
         const golfers = await Golfer.find(searchOptions)
         res.render('golfers/index', { 
@@ -18,8 +19,8 @@ router.get('/', async (req, res)=>{
         res.redirect('/')
 
     }
-    res.render('golfers/index')
 })
+
 
 // new golfer route
 router.get('/new', (req, res)=>{
@@ -90,5 +91,6 @@ router.delete('/:id', async (req, res) => {
         } 
     } 
 })
+
 
 module.exports = router
