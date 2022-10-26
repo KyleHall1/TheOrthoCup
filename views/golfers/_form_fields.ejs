@@ -1,2 +1,43 @@
-<label>Name</label>
-<input type="text" name="name" value="<%= golfer.name%>">
+
+
+<h1>Congrats! you have been invited to participate in the 2023 Ortho Cup Torniment!</h1>
+<h2>Registration</h2>
+  <label>Name</label>
+  <input type="text" name="name" value="<%= golfer.name%>">
+      <div>
+          <label for="Email">Email</label>
+          <input type="email" name="email" value="<%= golfer.email%>" required><br>
+      </div>
+
+      <div>
+          <label for="Phone-Number">Phone Number</label>
+          <input type="tel" name="phoneNumber" value="<%= golfer.phoneNumber%>" required><br>
+      </div>
+
+      <div>
+          <label for="Shirt-Size">Shirt size</label>
+          <select name="shirtSize">
+             <option value="">Select...</option>
+             <option value="xs">XS</option>
+            <option value="s">S</option>
+            <option value="m">M</option>
+           <option value="l">L</option>
+           <option value="xl">XL</option></select><br>
+      </div>
+
+      <div>
+          <label for="Hat-Size">Hat size</label>
+          <select id="Hat-Size" name="Hat-Size">
+              <option value="">Select...</option>
+              <option value="xs">XS</option>
+              <option value="s">S</option>
+              <option value="m">M</option>
+              <option value="l">L</option>
+              <option value="xl">XL</option></select><br>
+      </div>
+
+  <div id="smart-button-container">
+      <div style="text-align: center;">
+        <div id="paypal-button-container"></div>
+      </div>
+  </div>

@@ -30,22 +30,30 @@ router.get('/new', (req, res)=>{
 //create golfer
 router.post('/', async (req, res)=>{
     const golfer = new Golfer({
-        name: req.body.name
-    })
-    try{
+        name: req.body.name,
+        email: req.body.email,
+        phoneNumber: req.body.phoneNumber
+      })
+      try {
         const newGolfer = await golfer.save()
         res.redirect(`golfers/${newGolfer.id}`)
-    } catch{
-        res.render('golfers/new',{
-            golfer: golfer,
-            errorMessage: 'Error creating golfer'
+      } catch {
+        res.render('golfers/new', {
+          golfer: golfer,
+          errorMessage: 'Error creating golfer'
         })
-    }
+      }
     
 })
 
-router.get('/:id', (req, res) => {
-    res.send('Show Golfer ' + req.params.id)
+router.get('/:id', async (req, res) => {
+    try {
+        const golfer = await Golfer.findById(req.params.id)
+        res.render('golfers/show', { golfer: golfer })
+      } catch {
+        res.redirect('.golfers')
+      }
+    //res.send('Show Golfer ' + req.params.id)
 })
 
 router.get('/:id/edit', async (req, res) => {
@@ -60,21 +68,23 @@ router.get('/:id/edit', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     let golfer
-    try{
-        golfer = await Golfer.findById(req.params.id)
-        golfer.name = req.body.name
-        await golfer.save()
-        res.redirect(`/golfers/${golfer.id}`)
-    } catch{
-        if (golfer == nul){
-            res.redirect('/')
-        } else {
-            res.render('golfers/edit',{
-                golfer: golfer,
-                errorMessage: 'Error updating golfer'
-            })
-        } 
-    }  
+  try {
+    golfer = await Golfer.findById(req.params.id)
+    golfer.name = req.body.name
+    golfer.email = req.body.email
+    golfer.phoneNumber = req.body.phoneNumber
+    await golfer.save()
+    res.redirect(`/golfers/${golfer.id}`)
+  } catch {
+    if (golfer == nul) {
+      res.redirect('/')
+    } else {
+      res.render('golfers/edit', {
+        golfer: golfer,
+        errorMessage: 'Error updating golfer'
+      })
+    }
+  }  
 })
 
 router.delete('/:id', async (req, res) => {
