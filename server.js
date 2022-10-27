@@ -18,6 +18,7 @@ app.set('layout', 'layouts/layout')
 app.use(expressLayouts)
 app.use(methodOverride('_method'))
 app.use('/public', express.static('public'))
+app.use('/photos', express.static('photos'))
 app.use(bodyParser.urlencoded({limit: '10mb', extended: false }))
 
 const mongoose = require('mongoose')

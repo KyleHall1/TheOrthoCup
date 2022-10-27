@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const path = require('path')
+const profilePicBasePath = "uploads/profilePics/"
 
 const golferSchema = new mongoose.Schema({
     name: {
@@ -18,7 +20,22 @@ const golferSchema = new mongoose.Schema({
     },
     hatSize:{
         type: String
+    },
+    profilePicName:{
+      data: Buffer,
+      contentType: String
+
     }
 })
 
+
+golferSchema.virtual('profilePicPath').get(function(){
+  if (this.profilePicName != null){
+    return path.join('/', profilePicBasePath, this.profilePicName)
+  } else {
+    return path.join('/', profilePicBasePath,'defualtProfilePic.jpg')
+  }
+})
+
 module.exports = mongoose.model('Golfer', golferSchema)
+module.exports.profilePicBasePath = profilePicBasePath

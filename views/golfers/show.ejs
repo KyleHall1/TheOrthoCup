@@ -1,6 +1,7 @@
 <h2> <%= golfer.name %></h2>
 <h2> <%= golfer.email %></h2>
 <h2> <%= golfer.phoneNumber %></h2>
+<img height="150" width="100" src="">
 <a href="/golfers/<%= golfer.id %>/edit">Edit</a>
 <form method="POST" action="/golfers/<%= golfer.id %>?_method=DELETE">
     <button type="submit">Delete</button>
